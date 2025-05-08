@@ -12,6 +12,7 @@ uploadRow <- 1
 KSH <- "15302724"
 sending_Date <- paste0(substr(Sys.Date(), 1, 4), substr(Sys.Date(), 6, 7), substr(Sys.Date(), 9, 10))
 SZERV <- 1
+lastInsertRow <- 0
 
 for(i in 1:nrow(TULAJ_LIST)){
 
@@ -19,7 +20,8 @@ for(i in 1:nrow(TULAJ_LIST)){
 
     if (i %% 100000 == 0){
       
-      write.table(Q99, paste0("Q99", str_sub(uploading_Date[uploadRow], start = -5), KSH), quote = FALSE, row.names = FALSE, col.names = FALSE, append = FALSE)
+      lastInsertRow <- i
+      write.table(Q99[max(1, (i - 100000)):i, ], paste0("Q99", str_sub(uploading_Date[uploadRow], start = -5), KSH), quote = FALSE, row.names = FALSE, col.names = FALSE, append = FALSE)
       uploadRow %+=% 1
       SZERV <- 0
       
@@ -29,6 +31,4 @@ for(i in 1:nrow(TULAJ_LIST)){
         
 }
 
-View(Q99)
-
-write.table(Q99, paste0("Q99", str_sub(sending_Date, start = -5), KSH), quote = FALSE, row.names = FALSE, col.names = FALSE, append = FALSE)
+write.table(Q99[(lastInsertRow + 1):nrow(Q99), ], paste0("Q99", str_sub(sending_Date, start = -5), KSH), quote = FALSE, row.names = FALSE, col.names = FALSE, append = FALSE)
