@@ -7,7 +7,7 @@ getOption("scipen")
 
 Q99 <- data.frame(matrix(NA, nrow = nrow(TULAJ_LIST),  ncol = 1))
 
-uploading_Date <- c(paste0("2025", "05", "07"))
+uploading_Date <- c(paste0(substr(Sys.Date(), 1, 4), substr(Sys.Date(), 6, 7), substr(Sys.Date(), 9, 10)))
 uploadRow <- 1
 KSH <- "15302724"
 sending_Date <- paste0(substr(Sys.Date(), 1, 4), substr(Sys.Date(), 6, 7), substr(Sys.Date(), 9, 10))
@@ -31,4 +31,5 @@ for(i in 1:nrow(TULAJ_LIST)){
         
 }
 
-write.table(Q99[(lastInsertRow + 1):nrow(Q99), ], paste0("Q99", str_sub(sending_Date, start = -5), KSH), quote = FALSE, row.names = FALSE, col.names = FALSE, append = FALSE)
+if (nrow(TULAJ_LIST) %% 100000 != 0)
+  write.table(Q99[(lastInsertRow + 1):nrow(Q99), ], paste0("Q99", str_sub(sending_Date, start = -5), KSH), quote = FALSE, row.names = FALSE, col.names = FALSE, append = FALSE)

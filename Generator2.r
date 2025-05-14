@@ -7,7 +7,7 @@ getOption("scipen")
 
 Q99 <- data.frame(matrix(NA, nrow = nrow(TULAJ_LIST),  ncol = 13))
 
-uploading_Date <- c(paste0("2025", "05", "07"))
+uploading_Date <- c(paste0(substr(Sys.Date(), 1, 4), substr(Sys.Date(), 6, 7), substr(Sys.Date(), 9, 10)))
 KSH <- "15302724"
 sending_Date <- paste0(substr(Sys.Date(), 1, 4), substr(Sys.Date(), 6, 7), substr(Sys.Date(), 9, 10))
 SZERV <- str_pad(c(1:100000), 7, pad = "0")
